@@ -1,0 +1,23 @@
+{
+  "rulesVersion": "1.0",
+  "rules": [
+    {
+      "field": "Amount",
+      "type": "decimal",
+      "required": true,
+      "min": 0.01
+    },
+    {
+      "field": "Email",
+      "type": "string",
+      "required": true,
+      "pattern": ".+@.+\\..+"
+    },
+    {
+      "field": "Date",
+      "type": "date",
+      "required": true,
+      "notInFuture": true
+    }
+  ]
+}
