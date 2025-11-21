@@ -13,5 +13,13 @@ builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
 
+builder.Services.AddSingleton<RulesProvider>(sp =>
+{
+    var storageConn = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+    var rulesContainer = Environment.GetEnvironmentVariable("RulesContainer") ?? "rules";
+    var rulesBlob = Environment.GetEnvironmentVariable("RulesBlobName") ?? "validation-rules.json";
+    var logger = sp.GetRequiredService<ILogger<RulesProvider>>();
+    return new RulesProvider(storageConn, rulesContainer, rulesBlob, logger);
+});
 
 builder.Build().Run();
